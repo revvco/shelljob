@@ -25,7 +25,7 @@ class Group:
 		self.handles = []
 		self.waiting = 0
 		
-	def run( self, cmd, shell = False, encoding = None, on_error = None ):
+	def run( self, cmd, shell = False, encoding = None, on_error = None, env=None):
 		"""
 			Adds a new process to this object. This process is run and the output collected.
 			
@@ -37,7 +37,7 @@ class Group:
 			@return: the handle to the process return from Popen
 		"""
 		try:
-			return self._run_impl( cmd=cmd, shell=shell, encoding=encoding, on_error=on_error )
+			return self._run_impl( cmd=cmd, shell=shell, encoding=encoding, on_error=on_error, env=env )
 		except Exception as e:
 			raise CommandException( "Group.run '{}' failed".format( cmd ) ) from e
 		
