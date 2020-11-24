@@ -41,7 +41,7 @@ class Group:
 		except Exception as e:
 			raise CommandException( "Group.run '{}' failed".format( cmd ) ) from e
 		
-	def _run_impl( self, *, cmd, shell, encoding, on_error ):
+	def _run_impl( self, *, cmd, env, shell, encoding, on_error ):
 		cmd = _expand_cmd(cmd)
 			
 		handle = subprocess.Popen( cmd,
@@ -52,6 +52,7 @@ class Group:
 			stdin = subprocess.PIPE, # needed to detach from calling terminal (other wacky things can happen)
 			close_fds = True,
 			encoding = encoding,
+            env=env
 		)
 		handle.group_output_done = False
 		self.handles.append( handle )
