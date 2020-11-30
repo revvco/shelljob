@@ -43,17 +43,27 @@ class Group:
 		
 	def _run_impl( self, *, cmd, env, shell, encoding, on_error ):
 		cmd = _expand_cmd(cmd)
-			
-		handle = subprocess.Popen( cmd,
-			shell = shell,
-			bufsize = 1 if encoding else 0,
-			stdout = subprocess.PIPE,
-			stderr = subprocess.STDOUT,
-			stdin = subprocess.PIPE, # needed to detach from calling terminal (other wacky things can happen)
-			close_fds = True,
-			encoding = encoding,
-            env=env
-		)
+	    if env:		
+     		handle = subprocess.Popen( cmd,
+    			shell = shell,
+    			bufsize = 1 if encoding else 0,
+    			stdout = subprocess.PIPE,
+    			stderr = subprocess.STDOUT,
+    			stdin = subprocess.PIPE, # needed to detach from calling terminal (other wacky things can happen)
+    			close_fds = True,
+    			encoding = encoding,
+                env=env
+		    )
+        else:
+            handle = subprocess.Popen( cmd,
+                shell = shell,
+                bufsize = 1 if encoding else 0,
+                stdout = subprocess.PIPE,
+                stderr = subprocess.STDOUT,
+                stdin = subprocess.PIPE, # needed to detach from calling terminal (other wacky things can happen)
+                close_fds = True,
+                encoding = encoding
+            )
 		handle.group_output_done = False
 		self.handles.append( handle )
 		
