@@ -43,8 +43,8 @@ class Group:
 		
 	def _run_impl( self, *, cmd, env, shell, encoding, on_error ):
 		cmd = _expand_cmd(cmd)
-	    if env:		
-     		handle = subprocess.Popen( cmd,
+		if env:
+			handle = subprocess.Popen( cmd,
     			shell = shell,
     			bufsize = 1 if encoding else 0,
     			stdout = subprocess.PIPE,
@@ -54,8 +54,8 @@ class Group:
     			encoding = encoding,
                 env=env
 		    )
-        else:
-            handle = subprocess.Popen( cmd,
+		else:
+			handle = subprocess.Popen( cmd,
                 shell = shell,
                 bufsize = 1 if encoding else 0,
                 stdout = subprocess.PIPE,
